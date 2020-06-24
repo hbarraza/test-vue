@@ -1,12 +1,31 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
-    </div>
-    <router-view/>
+    <Contenedor/>
   </div>
 </template>
+
+<script>
+import axios from 'axios';
+import Contenedor from '@/components/Contenedor';
+
+const baseURL = 'http://157.245.138.232:9091/api/v1/test/superheroes';
+
+export default {
+  components: {
+    Contenedor
+  },
+  created() {
+    axios.get(baseURL)
+        .then( respuesta => this.superheroes = respuesta.data.data )
+        .catch( error => console.error(error) )
+  },
+  data() {
+    return {
+      superheroes: []
+    }
+  }
+}
+</script>
 
 <style>
 #app {
